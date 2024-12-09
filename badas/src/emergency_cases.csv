@@ -1,0 +1,6 @@
+Patient Name,Location,Symptoms,Emergency Level,Status
+John Doe,123 Main St,Severe Chest Pain,Critical,Closed
+Jane Smith,456 Elm St,Difficulty Breathing,Severe,Pending
+Bob Johnson,789 Pine St,Fracture,Moderate,Pending
+Alice Brown,321 Oak Ave,High Fever,Moderate,Closed
+Charlie White,654 Maple Dr,Severe Headache,Severe,Pending
