@@ -1,0 +1,28 @@
+Username,Password,Role
+admin,ad123,Admin
+dispatcher1,dispatch123,Dispatcher
+dispatcher2,dispatch456,Dispatcher
+doctor1,doc123,Doctor
+doctor2,doc456,Doctor
+nurse1,nurse123,Nurse
+nurse2,nurse456,Nurse
+nurse3,nurse789,Nurse
+receptionist1,rec123,Receptionist
+receptionist2,rec456,Receptionist
+emergency_coordinator1,ec123,Emergency Coordinator
+emergency_coordinator2,ec456,Emergency Coordinator
+it_support1,it123,IT Support
+it_support2,it456,IT Support
+hospital_admin1,ha123,Hospital Admin
+hospital_admin2,ha456,Hospital Admin
+paramedic1,param123,Paramedic
+paramedic2,param456,Paramedic
+ambulance_driver1,driver123,Ambulance Driver
+ambulance_driver2,driver456,Ambulance Driver
+triage_officer1,triage123,Triage Officer
+triage_officer2,triage456,Triage Officer
+security1,sec123,Security
+security2,sec456,Security
+janitor1,janitor123,Janitor
+janitor2,janitor456,Janitor
+staff,staff123,Staff
