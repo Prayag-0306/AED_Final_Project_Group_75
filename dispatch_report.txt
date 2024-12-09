@@ -1,0 +1,3 @@
+Dispatch Report:\nPatient Name: anmol\nAge: 88\nContact: 9980077961\nSymptoms: cough\nAnalysis Result: Minor Condition
+Severity: Low
+Recommendation: Cab Service or No Immediate Action\nFinal Recommendation: Cab Service is sufficient\n
