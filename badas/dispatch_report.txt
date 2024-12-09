@@ -1,0 +1,3 @@
+Dispatch Report:\nPatient Name: anmol\nAge: 23\nContact: 9980077961\nSymptoms: pain in hand , chest pain and bleeding\nAnalysis Result: Critical Condition
+Severity: High
+Recommendation: Advanced Life Support Ambulance\nFinal Recommendation: Basic Life Support Ambulance\n
