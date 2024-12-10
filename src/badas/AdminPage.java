@@ -1,5 +1,5 @@
 package badas;
-
+import badas.Login;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -83,7 +83,6 @@ public class AdminPage {
         frame.setVisible(true);
     }
 
-    // Load hospital data from CSV file
     private void loadHospitalData() {
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
@@ -96,7 +95,6 @@ public class AdminPage {
         }
     }
 
-    // Save hospital data to CSV file
     public void saveHospitalData() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (int i = 0; i < tableModel.getRowCount(); i++) {
@@ -108,8 +106,11 @@ public class AdminPage {
             e.printStackTrace();
         }
     }
-
-    // Add a new hospital
+    
+    public DefaultTableModel getTableModel() {
+        return tableModel;
+    }
+    
     private void addHospital(ActionEvent e) {
         String name = nameField.getText().trim();
         String location = locationField.getText().trim();
@@ -125,7 +126,6 @@ public class AdminPage {
         }
     }
 
-    // Delete selected hospital
     private void deleteHospital(ActionEvent e) {
         int selectedRow = hospitalTable.getSelectedRow();
         if (selectedRow != -1) {
@@ -137,7 +137,6 @@ public class AdminPage {
         }
     }
 
-    // Open the Update Hospital Page
     private void openUpdateHospitalPage() {
         int selectedRow = hospitalTable.getSelectedRow();
         if (selectedRow != -1) {
@@ -151,15 +150,14 @@ public class AdminPage {
         }
     }
 
-    // Clear input fields
     private void clearFields() {
         nameField.setText("");
         locationField.setText("");
         ambulanceField.setText("");
     }
 
-    // Getter for the table model
-    public DefaultTableModel getTableModel() {
-        return tableModel;
+    public void refreshTable() {
+        tableModel.setRowCount(0);
+        loadHospitalData();
     }
 }

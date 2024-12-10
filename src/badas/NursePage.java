@@ -7,30 +7,30 @@ import java.awt.event.ActionEvent;
 import java.io.*;
 import java.util.Vector;
 
-public class DoctorPage {
+public class NursePage {
     private JFrame frame;
     private JTable patientTable;
     private DefaultTableModel tableModel;
-    private JTextField diagnosisField, prescriptionField, searchField;
     private final String FILE_PATH = "patient_records.csv";
+    private JTextField statusField;
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new DoctorPage().createAndShowGUI());
+        SwingUtilities.invokeLater(() -> new NursePage().createAndShowGUI());
     }
 
     public void createAndShowGUI() {
-        frame = new JFrame("Doctor - Patient Records Management");
+        frame = new JFrame("Nurse - Patient Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 600);
+        frame.setSize(900, 500);
         frame.setLayout(new BorderLayout());
 
         // Title Label
-        JLabel titleLabel = new JLabel("Patient Records Management", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Patient Management", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         frame.add(titleLabel, BorderLayout.NORTH);
 
         // Table for Patient Records
-        String[] columnNames = {"Patient Name", "Age", "Symptoms", "Diagnosis", "Prescription"};
+        String[] columnNames = {"Patient Name", "Age", "Symptoms", "Diagnosis", "Prescription", "Status"};
         tableModel = new DefaultTableModel(columnNames, 0);
         patientTable = new JTable(tableModel);
         loadPatientData();
@@ -38,25 +38,17 @@ public class DoctorPage {
         JScrollPane tableScrollPane = new JScrollPane(patientTable);
         frame.add(tableScrollPane, BorderLayout.CENTER);
 
-        // Form Panel for Diagnosis and Prescription
-        JPanel formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        // Form Panel for Updating Status
+        JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 10));
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        formPanel.add(new JLabel("Diagnosis:"));
-        diagnosisField = new JTextField();
-        formPanel.add(diagnosisField);
+        formPanel.add(new JLabel("Update Status:"));
+        statusField = new JTextField();
+        formPanel.add(statusField);
 
-        formPanel.add(new JLabel("Prescription:"));
-        prescriptionField = new JTextField();
-        formPanel.add(prescriptionField);
-
-        JButton updateButton = new JButton("Update Record");
-        updateButton.addActionListener(this::updateRecord);
-        formPanel.add(updateButton);
-
-        JButton searchButton = new JButton("Search");
-        searchButton.addActionListener(this::searchPatient);
-        formPanel.add(searchButton);
+        JButton updateStatusButton = new JButton("Update Status");
+        updateStatusButton.addActionListener(this::updateStatus);
+        formPanel.add(updateStatusButton);
 
         frame.add(formPanel, BorderLayout.SOUTH);
 
@@ -73,7 +65,7 @@ public class DoctorPage {
         JButton homeButton = new JButton("Home");
         homeButton.addActionListener(e -> {
             frame.dispose();
-            new DoctorPage().createAndShowGUI();
+            new NursePage().createAndShowGUI();
         });
         buttonPanel.add(homeButton);
 
@@ -108,43 +100,22 @@ public class DoctorPage {
         }
     }
 
-    // Update diagnosis and prescription
-    private void updateRecord(ActionEvent e) {
+    // Update patient status
+    private void updateStatus(ActionEvent e) {
         int selectedRow = patientTable.getSelectedRow();
         if (selectedRow != -1) {
-            String diagnosis = diagnosisField.getText().trim();
-            String prescription = prescriptionField.getText().trim();
+            String status = statusField.getText().trim();
 
-            if (!diagnosis.isEmpty() && !prescription.isEmpty()) {
-                tableModel.setValueAt(diagnosis, selectedRow, 3);
-                tableModel.setValueAt(prescription, selectedRow, 4);
+            if (!status.isEmpty()) {
+                tableModel.setValueAt(status, selectedRow, 5);
                 savePatientData();
-                JOptionPane.showMessageDialog(frame, "Record updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                diagnosisField.setText("");
-                prescriptionField.setText("");
+                JOptionPane.showMessageDialog(frame, "Patient status updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                statusField.setText("");
             } else {
-                JOptionPane.showMessageDialog(frame, "Diagnosis and Prescription fields cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "Status field cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(frame, "Please select a patient to update!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    // Search patient by name or symptoms
-    private void searchPatient(ActionEvent e) {
-        String searchTerm = JOptionPane.showInputDialog(frame, "Enter Patient Name or Symptoms to search:");
-        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-            for (int i = 0; i < tableModel.getRowCount(); i++) {
-                String name = tableModel.getValueAt(i, 0).toString().toLowerCase();
-                String symptoms = tableModel.getValueAt(i, 2).toString().toLowerCase();
-
-                if (name.contains(searchTerm.toLowerCase()) || symptoms.contains(searchTerm.toLowerCase())) {
-                    patientTable.setRowSelectionInterval(i, i);
-                    patientTable.scrollRectToVisible(patientTable.getCellRect(i, 0, true));
-                    return;
-                }
-            }
-            JOptionPane.showMessageDialog(frame, "No matching records found!", "Info", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }
